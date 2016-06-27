@@ -54,22 +54,26 @@ def print(students)
   end
   cohorts.sort!
   previous_cohort = ""
-  cohorts.each do |cohort|
-    if cohort != previous_cohort
-      students.each do |student|
-        if student[:cohort] == cohort
-          puts "#{student[:name]} (#{student[:cohort]} cohort)"
+  if students.length > 0
+    cohorts.each do |cohort|
+      if cohort != previous_cohort
+        students.each do |student|
+          if student[:cohort] == cohort
+            puts "#{student[:name]} (#{student[:cohort]} cohort)"
+          end
         end
+        previous_cohort = cohort
       end
     end
-    previous_cohort = cohort
+  else
+    puts "There are no students enrolled!"
   end
 end
 
 def print_footer(students)
   if students.count > 1
     puts "Overall we have #{students.count} great students"
-  else
+  elsif students.count == 1
     puts "Overall we have #{students.count} great student"
   end
 end
