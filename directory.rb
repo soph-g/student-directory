@@ -6,12 +6,16 @@ def input_students
   students = []
   # get the first name
   name = gets.chomp
+
   # while the name is empty, repeat this code
   while !name.empty? do
+    puts "Which cohort does this student belong to?"
+    cohort = gets.chomp
     # add the student hash to the array
-    students << {name: name, cohort: :november}
+    students << {name: name, cohort: cohort}
     puts "Now we have #{students.count} students"
     # get another name from the user
+    puts "Please enter the next student, or hit enter to finish"
     name = gets.chomp
   end
   # return the array of students
@@ -19,21 +23,18 @@ def input_students
 end
 
 def print_header
-  line_width = 60
-  puts "The students of Villains Academy".center(line_width)
-  puts "---------------".center(line_width)
+  puts "The students of Villains Academy"
+  puts "---------------"
 end
 
 def print(students)
-  line_width = 60
   students.each do |student|
-    puts "#{student[:name]} (#{student[:cohort]} cohort)".center(line_width)
+    puts "#{student[:name]} (#{student[:cohort]} cohort)"
   end
 end
 
 def print_footer(students)
-  line_width = 60
-  puts "Overall we have #{students.count} great students".center(line_width)
+  puts "Overall we have #{students.count} great students"
 end
 
 students = input_students
