@@ -9,10 +9,29 @@ def input_students
 
   # while the name is empty, repeat this code
   while !name.empty? do
+    months = [ "January",
+                "February",
+                "March",
+                "April",
+                "May",
+                "June",
+                "July",
+                "August",
+                "September",
+                "October",
+                "November",
+                "December"]
     puts "Which cohort does this student belong to?"
-    cohort = gets.chomp
+    cohort = gets.chomp.downcase
+    if cohort.empty?
+      cohort = "November"
+    end
+    while !months.include?(cohort.capitalize) do
+      puts "That is not a valid cohort, please try again:"
+      cohort = gets.chomp.downcase
+    end
     # add the student hash to the array
-    students << {name: name, cohort: cohort}
+    students << {name: name, cohort: cohort.to_sym}
     puts "Now we have #{students.count} students"
     # get another name from the user
     puts "Please enter the next student, or hit enter to finish"
@@ -21,6 +40,7 @@ def input_students
   # return the array of students
   students
 end
+
 
 def print_header
   puts "The students of Villains Academy"
