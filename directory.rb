@@ -9,11 +9,7 @@ def input_students
   # while the name is empty, repeat this code
   while !name.empty? do
     # add the student hash to the array
-    puts "Please enter their place of birth:"
-    birthplace = gets.chomp
-    puts "Please enter their age:"
-    age = gets.chomp
-    students << {name: name, cohort: :november, birthplace: birthplace, age: age}
+    students << {name: name, cohort: :november}
     puts "Now we have #{students.count} students"
     # get another name from the user
     name = gets.chomp
@@ -23,19 +19,21 @@ def input_students
 end
 
 def print_header
-  puts "The students of Villains Academy"
-  puts "---------------"
+  line_width = 60
+  puts "The students of Villains Academy".center(line_width)
+  puts "---------------".center(line_width)
 end
 
 def print(students)
+  line_width = 60
   students.each do |student|
-    puts "#{student[:name]}, #{student[:age]} (#{student[:cohort]} cohort)"
-    puts "Birthplace: #{student[:birthplace]}"
+    puts "#{student[:name]} (#{student[:cohort]} cohort)".center(line_width)
   end
 end
 
 def print_footer(students)
-  puts "Overall we have #{students.count} great students"
+  line_width = 60
+  puts "Overall we have #{students.count} great students".center(line_width)
 end
 
 students = input_students
