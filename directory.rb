@@ -48,8 +48,21 @@ def print_header
 end
 
 def print(students)
-  students.each do |student|
-    puts "#{student[:name]} (#{student[:cohort]} cohort)"
+  cohorts = []
+  students.map do |student|
+    cohorts << student[:cohort]
+  end
+  cohorts.sort!
+  previous_cohort = ""
+  cohorts.each do |cohort|
+    if cohort != previous_cohort
+      students.each do |student|
+        if student[:cohort] == cohort
+          puts "#{student[:name]} (#{student[:cohort]} cohort)"
+        end
+      end
+    end
+    previous_cohort = cohort
   end
 end
 
