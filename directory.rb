@@ -1,6 +1,6 @@
 
 def interactive_menu
-  students = ""
+  students = []
   loop do
     # 1. print the menu and ask the user what to do
     puts "1. Input the students"
@@ -12,6 +12,7 @@ def interactive_menu
     case selection
     when "1"
       # input the students
+      students = input_students
     when "2"
       print_header
       print_students(students)
@@ -65,8 +66,6 @@ def print_footer(students)
   end
 end
 
-students = input_students
+
 # nothing happens until we call the methods
-print_header
-print(students)
-print_footer(students)
+interactive_menu
