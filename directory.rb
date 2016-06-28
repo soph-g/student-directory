@@ -6,32 +6,10 @@ def input_students
   students = []
   # get the first name
   name = gets.delete!("\n")
-
   # while the name is empty, repeat this code
   while !name.empty? do
-    months = [ "January",
-                "February",
-                "March",
-                "April",
-                "May",
-                "June",
-                "July",
-                "August",
-                "September",
-                "October",
-                "November",
-                "December"]
-    puts "Which cohort does this student belong to?"
-    cohort = gets.chomp.downcase
-    if cohort.empty?
-      cohort = "November"
-    end
-    while !months.include?(cohort.capitalize) do
-      puts "That is not a valid cohort, please try again:"
-      cohort = gets.chomp.downcase
-    end
     # add the student hash to the array
-    students << {name: name, cohort: cohort.to_sym}
+    students << {name: name, cohort: :november}
     puts "Now we have #{students.count} students"
     # get another name from the user
     puts "Please enter the next student, or hit enter to finish"
@@ -48,25 +26,8 @@ def print_header
 end
 
 def print(students)
-  cohorts = []
-  students.map do |student|
-    cohorts << student[:cohort]
-  end
-  cohorts.sort!
-  previous_cohort = ""
-  if students.length > 0
-    cohorts.each do |cohort|
-      if cohort != previous_cohort
-        students.each do |student|
-          if student[:cohort] == cohort
-            puts "#{student[:name]} (#{student[:cohort]} cohort)"
-          end
-        end
-        previous_cohort = cohort
-      end
-    end
-  else
-    puts "There are no students enrolled!"
+  students.each do |student|
+    puts "#{student[:name]} (#{student[:cohort]} cohort)"
   end
 end
 
