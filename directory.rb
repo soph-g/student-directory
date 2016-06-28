@@ -1,6 +1,7 @@
+@students = []
+
 
 def interactive_menu
-  students = []
   loop do
     # 1. print the menu and ask the user what to do
     puts "1. Input the students"
@@ -12,11 +13,9 @@ def interactive_menu
     case selection
     when "1"
       # input the students
-      students = input_students
+      @students = input_students
     when "2"
-      print_header
-      print_students(students)
-      print_footer(students)
+      print_menu
     when "9"
       exit # this will cause the program to terminate
     else
@@ -25,25 +24,31 @@ def interactive_menu
   end
 end
 
+def print_menu
+  print_header
+  print_students
+  print_footer
+end
+
 
 def input_students
   puts "Please enter the names of the students"
   puts "To finish, just hit return twice"
   # create an empty array
-  students = []
+  #students = []
   # get the first name
   name = gets.chomp
   # while the name is empty, repeat this code
   while !name.empty? do
     # add the student hash to the array
-    students << {name: name, cohort: :november}
-    puts "Now we have #{students.count} students"
+    @students << {name: name, cohort: :november}
+    puts "Now we have #{@students.count} students"
     # get another name from the user
     puts "Please enter the next student, or hit enter to finish"
     name = gets.chomp
   end
   # return the array of students
-  students
+  @students
 end
 
 
@@ -52,17 +57,17 @@ def print_header
   puts "---------------"
 end
 
-def print_students(students)
-  students.each do |student|
+def print_students
+  @students.each do |student|
     puts "#{student[:name]} (#{student[:cohort]} cohort)"
   end
 end
 
-def print_footer(students)
-  if students.count > 1
-    puts "Overall we have #{students.count} great students"
-  elsif students.count == 1
-    puts "Overall we have #{students.count} great student"
+def print_footer
+  if @students.count > 1
+    puts "Overall we have #{@students.count} great students"
+  elsif @students.count == 1
+    puts "Overall we have #{@students.count} great student"
   end
 end
 
