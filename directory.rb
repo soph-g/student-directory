@@ -86,12 +86,14 @@ def save_students
   File.open(filename, "w") do |file|
     file.write(@students.to_yaml)
   end
+  puts "#{@students.count} students were saved to #{filename}"
 end
 
 
 def load_students(filename = "students.csv")
   @students = []
   @students = YAML::load(File.read(filename))
+  puts "#{@students.count} students were loaded from #{filename}"
 end
 
 
