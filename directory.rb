@@ -1,3 +1,4 @@
+require "yaml"
 @students = []
 
 def interactive_menu
@@ -81,25 +82,16 @@ end
 
 def save_students
   # open the file for writing
-  file = File.open("students.csv", "w")
-  # interate over the array of students
-  @students.each do |student|
-    student_data = [student[:name], student[:cohort]]
-    csv_line = student_data.join(",")
-    file.puts csv_line
+  filename = "students.csv"
+  File.open(filename, "w") do |file|
+    file.write(@students.to_yaml)
   end
-  file.close
 end
 
 
 def load_students(filename = "students.csv")
   @students = []
-  file = File.open(filename, "r")
-  file.readlines.each do |line|
-    name, cohort = line.chomp.split(",")
-    create_array(name, cohort)
-  end
-  file.close
+  @students = YAML::load(File.read(filename))
 end
 
 
@@ -114,6 +106,7 @@ def try_load_students
     puts "Sorry, #{filename} doesn't exist"
   end
 end
+
 
 def create_array(name, cohort)
   @students << {name: name, cohort: cohort.to_sym}
