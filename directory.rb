@@ -20,11 +20,9 @@ end
 def process(selection)
   case selection
   when "1"
-    @students = input_students
+    input_students
   when "2"
-    print_header
-    print_students_list
-    print_footer
+    show_students
   when "9"
     exit # this will cause the program to terminate
   else
@@ -32,8 +30,11 @@ def process(selection)
   end
 end
 
-
-
+def show_students
+  print_header
+  print_students_list
+  print_footer
+end
 
 def input_students
   puts "Please enter the names of the students"
@@ -50,7 +51,6 @@ def input_students
     name = gets.chomp
   end
   # return the array of students
-  @students
 end
 
 
