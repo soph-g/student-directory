@@ -25,9 +25,11 @@ def process(selection)
   when "2"
     show_students
   when "3"
-    save_students
+    filename = assign_filename
+    save_students(filename)
   when "4"
-    load_students
+    filename = assign_filename
+    load_students(filename)
   when "9"
     exit # this will cause the program to terminate
   else
@@ -80,9 +82,7 @@ def print_footer
 end
 
 
-def save_students
-  # open the file for writing
-  filename = "students.csv"
+def save_students(filename = "students.csv")
   File.open(filename, "w") do |file|
     file.write(@students.to_yaml)
   end
@@ -108,6 +108,13 @@ def try_load_students
     puts "Sorry, #{filename} doesn't exist"
   end
 end
+
+def assign_filename
+  puts "Please give a filename"
+  puts "Leave blank to use students.csv"
+  filename = gets.chomp
+end
+
 
 
 def create_array(name, cohort)
