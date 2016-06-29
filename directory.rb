@@ -43,22 +43,19 @@ end
 
 
 def input_students
-  puts "Please enter the names of the students"
-  puts "To finish, just hit return twice"
-  # get the first name
-  name = STDIN.gets.chomp
-  # while the name is empty, repeat this code
+  name = get_student_name
   while !name.empty? do
-    # add the student hash to the array
-    @students << {name: name, cohort: :november}
+    create_array(name, "november")
     puts "Now we have #{@students.count} students"
-    # get another name from the user
-    puts "Please enter the next student, or hit enter to finish"
-    name = STDIN.gets.chomp
+    name = get_student_name
   end
-  # return the array of students
 end
 
+def get_student_name
+  puts "Please enter the name of the student"
+  puts "Hit enter twice to finish"
+  name = STDIN.gets.chomp
+end
 
 def print_header
   puts "The students of Villains Academy"
@@ -88,7 +85,7 @@ def save_students
   # interate over the array of students
   @students.each do |student|
     student_data = [student[:name], student[:cohort]]
-    csv_line = student_data.join(", ")
+    csv_line = student_data.join(",")
     file.puts csv_line
   end
   file.close
@@ -100,7 +97,7 @@ def load_students(filename = "students.csv")
   file = File.open(filename, "r")
   file.readlines.each do |line|
     name, cohort = line.chomp.split(",")
-    @students << {name: name, cohort: cohort.to_sym}
+    create_array(name, cohort)
   end
   file.close
 end
@@ -108,13 +105,18 @@ end
 
 def try_load_students
   filename = ARGV.first
-  return if filename.nil?
-  if File.exists?(filename)
+  if filename.nil?
+    load_students
+  elsif File.exists?(filename)
     load_students(filename)
     puts "Loaded #{@students.count} from #{filename}"
   else
     puts "Sorry, #{filename} doesn't exist"
   end
+end
+
+def create_array(name, cohort)
+  @students << {name: name, cohort: cohort.to_sym}
 end
 
 # nothing happens until we call the methods
